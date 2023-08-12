@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket Io</title>
+</head>
+<body>
+    <h1>Socket Io - Conectado</h1>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+        socket.emit("datos_usuario", {
+            name: 'Santiago',
+            correo: 'santiago.patiasoc@gmail.com',
+            contrasenha: 'xd'
+        })
+        // let name = window.prompt('xd')
+        // io.emit('name', name)
+    </script>
+</body>
+</html>
