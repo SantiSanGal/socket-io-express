@@ -17,8 +17,10 @@ const io = new Server(httpServer, {});
 io.on("connection", socket => {
     console.log("Nueva conexión, ", socket.id);
     socket.on("datos_usuario", datos => {
-        console.log(datos);
-    })
+        console.log(datos.name);
+        socket.emit("alert", {"name": datos.name});
+    });
+    
 });
 
 httpServer.listen(3000);

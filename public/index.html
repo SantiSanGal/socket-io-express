@@ -16,8 +16,9 @@
             correo: 'santiago.patiasoc@gmail.com',
             contrasenha: 'xd'
         })
-        // let name = window.prompt('xd')
-        // io.emit('name', name)
+        socket.on("alert", name =>{
+            alert("Conectado: " + name.name);
+        });
     </script>
 </body>
 </html>
