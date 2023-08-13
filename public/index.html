@@ -4,21 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Socket Io</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Ubuntu&display=swap" rel="stylesheet">
 </head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Nunito', sans-serif;
+        font-family: 'Ubuntu', sans-serif;
+        color: black;
+    }
+    .dialogModal{
+        width: 50vw;
+        height: 50vh;
+        display: grid;
+        place-content: center;
+        background-color: rgba(250, 250, 250, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        position: absolute;z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 1px 4px 7px rgba(0, 0, 0, 0.20);
+    }
+    .form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        gap: 0.5rem;
+    }
+    .video-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;z-index: 0;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        background-color: red;
+    }
+    .video-container video{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    input{
+        padding: 0.5rem;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 1px 4px 7px rgba(0, 0, 0, 0.15);
+    }
+    input::placeholder{
+        text-align: center;
+    }
+    button{
+        padding: 1rem;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 1px 4px 7px rgba(0, 0, 0, 0.15);
+    }
+    button:hover{
+        font-weight: bolder;
+        transform: scale(1.1);
+        filter: brightness(1.5);
+    }
+    button:focus{
+        font-weight: bolder;
+        transform: scale(1.1);
+        filter: brightness(1.5);
+    }
+</style>
 <body>
-    <h1>Socket Io - Conectado</h1>
+    <div id="dialogModal" class="dialogModal">
+        <form id="form" class="form">
+            <label id="labelUsuario" name="inputUsuario" for="usuario">USUARIO</label>
+            <input id="inputUsuario" name="inputUsuario" type="text" placeholder="Ingrese su nombre">
+            <label id="labelPassword" name="inputPassword" for="password">CONTRASEÑA</label>
+            <input id="inputPassword" name="inputPassword" type="password" placeholder="Ingrese su contraseña">
+            <button id="submitForm">INGRESAR</button>
+        </form>
+    </div>
+
+    <div class="video-container">
+        <video src="./media/back.mp4" autoplay loop muted></video>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <script>
+        $('#form').submit(e=>{
+            e.preventDefault();
+        });
         const socket = io();
         socket.emit("datos_usuario", {
             name: 'Santiago',
             correo: 'santiago@gmail.com',
             contrasenha: 'xd'
         })
-        socket.on("alert", name =>{
-            alert("Conectado: " + name.name);
-        });
     </script>
 </body>
 </html>

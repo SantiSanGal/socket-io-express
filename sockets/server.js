@@ -2,6 +2,7 @@
 //npm i socket.io
 //npm i nodemon -D //? Cuando hago un cambio en el archivo, se ve reflejado 
 //!cambiar en scripts del package.json nodemon sockets/server.js
+// * npm start
 
 const express = require("express");
 const { createServer } = require("http");
