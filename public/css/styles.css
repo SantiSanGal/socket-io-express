@@ -1,0 +1,133 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    color: black;
+}
+
+.dialogModal{
+    width: 50vw;
+    height: 50vh;
+    display: grid;
+    place-content: center;
+    /* background-color: rgba(250, 250, 250, 0.15); */
+    background-color: #fff6;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    position: absolute;z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 1px 4px 7px rgba(0, 0, 0, 0.20);
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+.video-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;z-index: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.video-container video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+input{
+    padding: 0.5rem;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 1px 4px 7px rgba(0, 0, 0, 0.15);
+}
+
+input::placeholder{
+    text-align: center;
+}
+
+button{
+    padding: 1rem;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 1px 4px 7px rgba(0, 0, 0, 0.15);
+}
+
+button:hover{
+    font-weight: bolder;
+    transform: scale(1.1);
+    filter: brightness(1.5);
+}
+
+button:focus{
+    font-weight: bolder;
+    transform: scale(1.1);
+    filter: brightness(1.5);
+}
+
+.chat-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header{
+    width: 100%;
+    height: 7vh;
+    background-color: #202c33;
+}
+
+.chat-messages{
+    width: 100vw;
+    height: 86vh;
+    background-color: #111b21;
+}
+
+.container-input{
+    width: 100%;
+    height: 7vh;
+    background-color: #202c33;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.container-input input{
+    width: 70%;
+    height: 80%;
+}
+
+.container-input button{
+    width: 20%;
+    height: 80%;
+    transition: all 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-input button:hover{
+    background-color: #00da60;
+}
+
+.chat-messages-message strong,
+.chat-messages-message p{
+    color: #fff;
+}

@@ -17,11 +17,15 @@ const io = new Server(httpServer, {});
 
 io.on("connection", socket => {
     console.log("Nueva conexión, ", socket.id);
+    
     socket.on("loginForm", data => {
-        console.log('data', data);
+        // console.log('data', data);
     });
+
+    socket.on("sendMessage", data => {
+        console.log('Message: ', data);
+    });
+
 });
-
-
 
 httpServer.listen(3000);
