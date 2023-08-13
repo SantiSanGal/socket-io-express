@@ -22,7 +22,8 @@
         height: 50vh;
         display: grid;
         place-content: center;
-        background-color: rgba(250, 250, 250, 0.15);
+        /* background-color: rgba(250, 250, 250, 0.15); */
+        background-color: #fff6;
         backdrop-filter: blur(10px);
         border-radius: 15px;
         position: absolute;z-index: 1;
@@ -81,32 +82,39 @@
     }
 </style>
 <body>
-    <div id="dialogModal" class="dialogModal">
-        <form id="form" class="form">
-            <label id="labelUsuario" name="inputUsuario" for="usuario">USUARIO</label>
-            <input id="inputUsuario" name="inputUsuario" type="text" placeholder="Ingrese su nombre">
-            <label id="labelPassword" name="inputPassword" for="password">CONTRASEÑA</label>
-            <input id="inputPassword" name="inputPassword" type="password" placeholder="Ingrese su contraseña">
-            <button id="submitForm">INGRESAR</button>
-        </form>
-    </div>
+    <section id="login">
+        <div id="dialogModal" class="dialogModal">
+            <form method="post" id="form" class="form">
+                <label id="labelUsuario" name="inputUsuario" for="usuario">USUARIO</label>
+                <input id="inputUsuario" name="inputUsuario" type="text" placeholder="Ingrese su nombre">
+                <label id="labelPassword" name="inputPassword" for="password">CONTRASEÑA</label>
+                <input id="inputPassword" name="inputPassword" type="password" placeholder="Ingrese su contraseña">
+                <button id="submitForm">INGRESAR</button>
+            </form>
+        </div>
+    
+        <div class="video-container">
+            <video src="./media/back.mp4" autoplay loop muted></video>
+        </div>
+    </section>
 
-    <div class="video-container">
-        <video src="./media/back.mp4" autoplay loop muted></video>
-    </div>
+    <section id="chat">
+
+    </section>
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <script>
+        const socket = io();
         $('#form').submit(e=>{
             e.preventDefault();
+            let data = {
+                usuario: $("#inputUsuario").val(),
+                pass: $("#inputPassword").val()
+            }
+            data.usuario && data.pass ? socket.emit("loginForm", data) : '';
+            data.usuario && data.pass ? $("#login").css("display", "none") : '';
         });
-        const socket = io();
-        socket.emit("datos_usuario", {
-            name: 'Santiago',
-            correo: 'santiago@gmail.com',
-            contrasenha: 'xd'
-        })
     </script>
 </body>
 </html>
