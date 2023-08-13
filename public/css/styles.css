@@ -113,7 +113,7 @@ button:focus{
     padding: 0.5rem;
     border-radius: 10px;
     background-color: #202c33;
-    overflow: auto;
+    /* overflow: auto; */
     word-wrap: break-word;
     /* max-height: 300px; */
 }
