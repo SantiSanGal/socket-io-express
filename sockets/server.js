@@ -24,6 +24,7 @@ io.on("connection", socket => {
 
     socket.on("sendMessage", data => {
         console.log('Message: ', data);
+        io.emit("showMessage", data);
     });
 
 });

@@ -3,6 +3,7 @@ let data = {
     usuario: '',
     pass: ''
 }
+let lastUser = ''
 
 $(document).ready(()=>{
     $('#chat').css("display", "none");
@@ -19,6 +20,19 @@ $('#form').submit(e=>{
 
 const sendMessage = () =>{
     const message = $("#inputMessage").val()
-    socket.emit("sendMessage", {usuario: data.usuario, message: message});
+    message ? socket.emit("sendMessage", {usuario: data.usuario, message: message}) : ''; 
     $("#inputMessage").val('')
 }
+
+socket.on("showMessage", data => {
+    let message = "<span class=\"chat-messages-message\">"    
+    if (lastUser == data.usuario) {
+        message += "<p class=\"chat-messages-message-text\">" + data.message + "</p>"
+    }else{
+        message += "<strong class=\"chat-messages-message-user\">" + data.usuario + " </strong>"
+        message += "<p class=\"chat-messages-message-text\">" + data.message + "</p>"
+    }
+    message += "</span>"
+    lastUser = data.usuario
+    $("#chat-messages").append(message);
+});
