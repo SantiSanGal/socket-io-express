@@ -23,11 +23,13 @@ io.on("connection", socket => {
     
     socket.on("loginForm", data => {
         userOnId[socket.id] = data.usuario;
-        if (idsOnUser[data.usuario]) {
-            idsOnUser[data.usuario] = new Array();
+        if (!idsOnUser[data.usuario]) {
+            idsOnUser[data.usuario] = [socket.id];
         }else{
             idsOnUser[data.usuario].push(socket.id);
         }
+        console.log('userOnId', userOnId);
+        console.log('idsOnUser', idsOnUser);
     });
 
     socket.on("sendMessage", data => {
