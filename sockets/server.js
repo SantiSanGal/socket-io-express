@@ -4,6 +4,8 @@
 //!cambiar en scripts del package.json nodemon sockets/server.js
 // * npm start
 
+let usuariosConectados = [];
+
 const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
@@ -19,8 +21,8 @@ io.on("connection", socket => {
     console.log("Nueva conexión, ", socket.id);
     
     socket.on("loginForm", data => {
-        data.idUser = socket.id;
-        console.log('Nombre: ', data.usuario, 'Pass: ', data.pass, 'id: ', data.idUser);
+        usuariosConectados.push({usuario: data.usuario, pass: data.pass, id: socket.id})    
+        console.log(usuariosConectados);
     });
 
     socket.on("sendMessage", data => {
