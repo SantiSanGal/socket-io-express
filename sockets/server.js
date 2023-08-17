@@ -19,12 +19,13 @@ io.on("connection", socket => {
     console.log("Nueva conexión, ", socket.id);
     
     socket.on("loginForm", data => {
-        // console.log('data', data);
+        data.idUser = socket.id;
+        console.log('Nombre: ', data.usuario, 'Pass: ', data.pass, 'id: ', data.idUser);
     });
 
     socket.on("sendMessage", data => {
         console.log('Message: ', data);
-        io.emit("showMessage", data);
+        io.to(data.idUser).emit("showMessage", data);
     });
 
 });
