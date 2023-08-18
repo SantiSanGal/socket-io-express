@@ -36,8 +36,12 @@ io.on("connection", socket => {
         console.log('Message: ', data);
         io.to(data.idUser).emit("showMessage", data);
     });    
-    
+
+    socket.on("desconect", ()=>{
+        console.log('usuario desconectado');
+    });
 });
+
 
 
 httpServer.listen(3000);
