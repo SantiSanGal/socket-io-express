@@ -109,21 +109,18 @@ button:focus{
 
 .chat-messages-message{
     width: 90%;
-    /* height: fit-content; */
     padding: 0.5rem;
     border-radius: 10px;
     background-color: #202c33;
-    /* overflow: auto; */
     word-wrap: break-word;
-    /* max-height: 300px; */
 }
 
-.chat-messages-message-user{
+/* .chat-messages-message-user{
 
-}
+} */
 
 .container-input{
-    width: 100%;
+    width: 90%;
     height: 7vh;
     background-color: #202c33;
     display: flex;

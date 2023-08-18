@@ -15,32 +15,29 @@ app.use(express.static('public'))
 const httpServer = createServer(app);
 const io = new Server(httpServer, {});
 
-let userOnId =  new Array();
-let idsOnUser = new Array();
+let usuariosConectados = [];
+// let userOnId =  new Array();
+// let idsOnUser = new Array();
 
 io.on("connection", socket => {
     console.log("Nueva conexión, ", socket.id);
     
     socket.on("loginForm", data => {
-        userOnId[socket.id] = data.usuario;
-        if (!idsOnUser[data.usuario]) {
-            idsOnUser[data.usuario] = [socket.id];
-        }else{
-            idsOnUser[data.usuario].push(socket.id);
-        }
-        console.log('userOnId', userOnId);
-        console.log('idsOnUser', idsOnUser);
+        usuariosConectados.push({usuario: data.usuario, pass: data.pass, id: socket.id});
+        console.log(usuariosConectados);
     });
 
     socket.on("sendMessage", data => {
         console.log('Message: ', data);
-        io.to(data.idUser).emit("showMessage", data);
-    });    
+        // io.to(data.idUser).emit("showMessage", data);
+        io.emit("showMessage", data);
+    });
 
-    socket.on("desconect", ()=>{
-        console.log('usuario desconectado');
+    socket.on("disconnect", () =>{
+        console.log("Id Desconectado", socket.id);
     });
 });
+
 
 
 
