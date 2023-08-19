@@ -54,7 +54,7 @@ socket.on("usuariosConectados", usuariosConectados => {
     let usuarios = ''
     usuariosConectados.map(usuario => {
         if (usuario.usuario != data.usuario) {
-            usuarios += `<div id="usuario-container-${usuario.usuario}" class="usuario-container">`
+            usuarios += `<div id="usuario-container-${usuario.usuario}" class="usuario-container" onclick="handleUsuarioClick('${usuario.usuario}')">`
             usuarios += `   <span class="en-linea"><b> ${usuario.usuario} </b></span>`
             usuarios += '   <span class="en-linea"><div class="mini-icon"></div> En Linea</span>'
             usuarios += '</div>'
@@ -62,5 +62,9 @@ socket.on("usuariosConectados", usuariosConectados => {
     });
     $("#sidebar-users").append(usuarios)
 });
+
+const handleUsuarioClick = (usuario) => {
+    console.log(usuario);
+}
 
 

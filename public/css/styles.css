@@ -134,6 +134,7 @@ button:focus{
     flex-direction: column;
     height: 10%;
     padding: 1rem;
+    cursor: pointer;
 }
 
 .en-linea{

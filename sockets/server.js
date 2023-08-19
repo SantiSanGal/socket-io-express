@@ -50,20 +50,22 @@ io.on("connection", socket => {
             [usuarioDesconectado] = usuariosConectados.filter(conectados => conectados.id == socket.id)
             console.log(usuarioDesconectado);
 
-            //de los usuarios conectados, saco el que se desconectó ahora
-            usuariosConectados = usuariosConectados.filter(conectados => conectados.id != socket.id)
-
-            //elimino el id desconectado
-            // if (idsUsuarios[usuarioDesconectado.usuario]) {
-            idsUsuarios[usuarioDesconectado.usuario].map((curr, i) => {
-                curr == usuarioDesconectado.id ? idsUsuarios[usuarioDesconectado.usuario].splice(i, 1) : '';
-            });   
-            // }
-
-            //si ya no hay ids conectados, borro el usuario del array
-            idsUsuarios[usuarioDesconectado.usuario].length < 1 ? delete idsUsuarios[usuarioDesconectado.usuario] : '';
-
-            io.emit("usuariosConectados", usuariosConectados);
+            if (usuarioDesconectado) {
+                //de los usuarios conectados, saco el que se desconectó ahora
+                usuariosConectados = usuariosConectados.filter(conectados => conectados.id != socket.id)
+                
+                //elimino el id desconectado
+                // if (idsUsuarios[usuarioDesconectado.usuario]) {
+                idsUsuarios[usuarioDesconectado.usuario].map((curr, i) => {
+                    curr == usuarioDesconectado.id ? idsUsuarios[usuarioDesconectado.usuario].splice(i, 1) : '';
+                });   
+                // }
+            
+                //si ya no hay ids conectados, borro el usuario del array
+                idsUsuarios[usuarioDesconectado.usuario].length < 1 ? delete idsUsuarios[usuarioDesconectado.usuario] : '';
+            
+                io.emit("usuariosConectados", usuariosConectados);
+            }
         }
     });
 });
