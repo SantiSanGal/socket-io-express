@@ -25,6 +25,7 @@ $('#form').submit(e=>{
     data.usuario && data.pass ? socket.emit("loginForm", data) : '';
     data.usuario && data.pass ? $("#login").css("display", "none") : '';
     $('#chat').removeAttr("style");
+    $('#username').html(`<b>${data.usuario}</b>`)
 });
 
 const sendMessage = () =>{
@@ -58,7 +59,6 @@ socket.on("usuariosConectados", usuariosConectados => {
             usuarios += '   <span class="en-linea"><div class="mini-icon"></div> En Linea</span>'
             usuarios += '</div>'
         }
-        console.log($(`#usuario-container-${usuario.usuario}`).html());
     });
     $("#sidebar-users").append(usuarios)
 });
