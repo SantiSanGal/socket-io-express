@@ -28,17 +28,21 @@
     </section>
 
     <section id="chat" class="chat-container">
-        <div class="header">
-            <div class="header-logo"></div>
-            <div class="header-options"></div>
-        </div>
+        <div id="sidebar-users" class="sidebar-users"></div>
 
-        <div id="chat-messages" class="chat-messages">
-        </div>
-
-        <div class="container-input">
-            <input type="text" id="inputMessage" name="inputMessage" class="inputMessage">
-            <button id="sendMessage" onclick="sendMessage()"><i class='bx bx-send'></i></button>
+        <div class="chat-messages-container">
+            <div class="header">
+                <div class="header-logo"></div>
+                <div class="header-options"></div>
+            </div>
+    
+            <div id="chat-messages" class="chat-messages">
+            </div>
+    
+            <div class="container-input">
+                <input type="text" id="inputMessage" name="inputMessage" class="inputMessage">
+                <button id="sendMessage" onclick="sendMessage()"><i class='bx bx-send'></i></button>
+            </div>
         </div>
     </section>
 

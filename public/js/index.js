@@ -48,4 +48,19 @@ socket.on("showMessage", data => {
     $(".chat-messages-message-user-"+ data.usuario).css("color", randomColor());
 });
 
+socket.on("usuariosConectados", usuariosConectados => {
+    $("#sidebar-users").html('')
+    let usuarios = ''
+    usuariosConectados.map(usuario => {
+        if (usuario.usuario != data.usuario) {
+            usuarios += `<div id="usuario-container-${usuario.usuario}" class="usuario-container">`
+            usuarios += `   <span class="en-linea"><b> ${usuario.usuario} </b></span>`
+            usuarios += '   <span class="en-linea"><div class="mini-icon"></div> En Linea</span>'
+            usuarios += '</div>'
+        }
+        console.log($(`#usuario-container-${usuario.usuario}`).html());
+    });
+    $("#sidebar-users").append(usuarios)
+});
+
 

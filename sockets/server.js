@@ -34,6 +34,8 @@ io.on("connection", socket => {
         }else{
             idsUsuarios[data.usuario].push(socket.id);
         }
+
+        io.emit("usuariosConectados", usuariosConectados);
     });
 
     socket.on("sendMessage", data => {
@@ -46,16 +48,21 @@ io.on("connection", socket => {
         if (usuariosConectados.length > 0) {
             //obtengo el usuario que se desconectó 
             [usuarioDesconectado] = usuariosConectados.filter(conectados => conectados.id == socket.id)
+
             //de los usuarios conectados, saco el que se desconectó ahora
-            // ! TODO verificar si el usuario tiene una o más conexiones antes de borrar
             usuariosConectados = usuariosConectados.filter(conectados => conectados.id != socket.id)
+
             //elimino el id desconectado
-            idsUsuarios[usuarioDesconectado.usuario].map((curr, i) => {
-                curr == usuarioDesconectado.id ? idsUsuarios[usuarioDesconectado.usuario].splice(i, 1) : '';
-            });
+            if (idsUsuarios[usuarioDesconectado.usuario].length > 0) {
+                idsUsuarios[usuarioDesconectado.usuario].map((curr, i) => {
+                    curr == usuarioDesconectado.id ? idsUsuarios[usuarioDesconectado.usuario].splice(i, 1) : '';
+                });   
+            }
+
             //si ya no hay ids conectados, borro el usuario del array
-            // ? verificar si puedo hacer acá lo de TODO 44
             idsUsuarios[usuarioDesconectado.usuario].length < 1 ? delete idsUsuarios[usuarioDesconectado.usuario] : '';
+
+            io.emit("usuariosConectados", usuariosConectados);
         }
     });
 });
