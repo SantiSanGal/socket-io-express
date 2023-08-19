@@ -16,25 +16,24 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {});
 
 let usuariosConectados = [];
-// let userOnId =  new Array();
-// let idsOnUser = new Array();
 
 io.on("connection", socket => {
     console.log("Nueva conexión, ", socket.id);
     
     socket.on("loginForm", data => {
         usuariosConectados.push({usuario: data.usuario, pass: data.pass, id: socket.id});
-        console.log(usuariosConectados);
     });
 
     socket.on("sendMessage", data => {
-        console.log('Message: ', data);
         // io.to(data.idUser).emit("showMessage", data);
         io.emit("showMessage", data);
     });
 
     socket.on("disconnect", () =>{
-        console.log("Id Desconectado", socket.id);
+        console.log("Usuario desconectado", socket.id);
+        if (usuariosConectados) {
+            usuariosConectados = usuariosConectados.filter(conectados => conectados.id != socket.id);
+        }
     });
 });
 
