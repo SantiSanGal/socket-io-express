@@ -28,7 +28,6 @@ io.on("connection", socket => {
         }else{
             idsUsuarios[data.usuario].push(socket.id);
         }
-        console.log(idsUsuarios);
     });
 
     socket.on("sendMessage", data => {
@@ -37,20 +36,15 @@ io.on("connection", socket => {
     });
 
     socket.on("disconnect", () =>{
-        if (usuariosConectados) {
+        if (usuariosConectados.length > 0) {
             [usuarioDesconectado] = usuariosConectados.filter(conectados => conectados.id == socket.id)
             usuariosConectados = usuariosConectados.filter(conectados => conectados.id != socket.id)
-        }
-
-        for (let i = 0; i < idsUsuarios[usuarioDesconectado.usuario].length; i++) {
-            if (idsUsuarios[usuarioDesconectado.usuario][i] == usuarioDesconectado.id) {
-                idsUsuarios[usuarioDesconectado.usuario].splice(i, 1);
-            }
+            idsUsuarios[usuarioDesconectado.usuario].map((curr, i) => {
+                curr == usuarioDesconectado.id ? idsUsuarios[usuarioDesconectado.usuario].splice(i, 1) : '';
+            });
+            idsUsuarios[usuarioDesconectado.usuario].length < 1 ? delete idsUsuarios[usuarioDesconectado.usuario] : '';
         }
     });
 });
-
-
-
 
 httpServer.listen(3000);
