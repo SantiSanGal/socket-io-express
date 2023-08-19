@@ -16,12 +16,19 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {});
 
 let usuariosConectados = [];
+let idsUsuarios = [];
 
 io.on("connection", socket => {
     console.log("Nueva conexión, ", socket.id);
     
     socket.on("loginForm", data => {
-        usuariosConectados.push({usuario: data.usuario, pass: data.pass, id: socket.id});
+        usuariosConectados.push({usuario: data.usuario, id: socket.id});
+        if(!idsUsuarios[data.usuario]){
+            idsUsuarios[data.usuario] = [socket.id];
+        }else{
+            idsUsuarios[data.usuario].push(socket.id);
+        }
+        console.log(idsUsuarios);
     });
 
     socket.on("sendMessage", data => {
@@ -30,9 +37,15 @@ io.on("connection", socket => {
     });
 
     socket.on("disconnect", () =>{
-        console.log("Usuario desconectado", socket.id);
         if (usuariosConectados) {
-            usuariosConectados = usuariosConectados.filter(conectados => conectados.id != socket.id);
+            [usuarioDesconectado] = usuariosConectados.filter(conectados => conectados.id == socket.id)
+            usuariosConectados = usuariosConectados.filter(conectados => conectados.id != socket.id)
+        }
+
+        for (let i = 0; i < idsUsuarios[usuarioDesconectado.usuario].length; i++) {
+            if (idsUsuarios[usuarioDesconectado.usuario][i] == usuarioDesconectado.id) {
+                idsUsuarios[usuarioDesconectado.usuario].splice(i, 1);
+            }
         }
     });
 });
