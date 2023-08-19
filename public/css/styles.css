@@ -117,7 +117,7 @@ button:focus{
 
 .sidebar-users{
     width: 25vw;
-    height: 100vh;
+    height: 93vh;
     background-color: #111b21;
     display: flex;
     flex-direction: column;
@@ -189,6 +189,15 @@ button:focus{
     height: 80%;
 }
 
+.inputMessage{
+    background-color: #2a3942;
+    color: #fff;
+}
+
+.inputMessage:focus{
+    outline: none;
+}
+
 .container-input button{
     width: 20%;
     height: 80%;
@@ -196,6 +205,7 @@ button:focus{
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #8696a0;
 }
 
 .container-input button:hover{
