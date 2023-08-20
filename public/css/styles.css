@@ -103,7 +103,8 @@ button:focus{
     color: #fff;
 }
 
-.bx-user{
+.bx-user,
+.bx-chevron-left{
     background-color: #fff;
     padding: 0.5rem;
     border-radius: 50%;
@@ -216,4 +217,29 @@ button:focus{
 .chat-messages-message strong,
 .chat-messages-message p{
     color: #fff;
+}
+
+.chat-privado{
+    width: 100vw;
+    height: 100vh;
+    background-color: green;
+    display: flex;
+}
+
+.sidebar-privado{
+    height: 100vh;
+    width: 25%;
+    /* width: 25vw; */
+    background-color: red;
+}
+
+.chat-privado-messages{
+    height: 100vh;
+    /* width: 75vw; */
+    width: 75%;
+}
+
+.header-privado{
+    height: 7vh;
+    width: 100%;
 }

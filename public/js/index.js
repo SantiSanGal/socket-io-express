@@ -10,12 +10,15 @@ const randomColor = () => {
 let data = {
     usuario: '',
     pass: '',
-}
+};
 
-let lastUser = ''
+let lastUser = '';
+let userSelectedForDm = '';
+let chatAbierto = '';
 
 $(document).ready(()=>{
     $('#chat').css("display", "none");
+    $('#chat-privado').css("display", "none");
 });
 
 $('#form').submit(e=>{
@@ -30,23 +33,47 @@ $('#form').submit(e=>{
 
 const sendMessage = () =>{
     const message = $("#inputMessage").val()
-    message ? socket.emit("sendMessage", {usuario: data.usuario, message: message}) : ''; 
+    message ? socket.emit("sendMessage", {usuario: data.usuario, message: message}) : '';
     $("#inputMessage").val('')
 }
 
+const sendDM = () => {
+    const message = $('#inputDM').val();
+    console.log('message', message);
+    message ? socket.emit("sendMessage", {usuario: data.usuario, destinatario: userSelectedForDm,message: message}) : '';
+    $("#inputDM").val('')
+}
+
 socket.on("showMessage", data => {
-    let message = "<span class=\"chat-messages-message\">"    
-    if (lastUser == data.usuario) {
-        message += "<p class=\"chat-messages-message-text\">" + data.message + "</p>"
+    chatAbierto = $('#username-privado').innerHTML();
+    console.log('chatAbierto', chatAbierto);
+    if (data.destinatario) {
+        if (data.destinatario == chatAbierto) {
+            // let message = "<span class=\"chat-messages-message\">"    
+            // if (lastUser == data.usuario) {
+            //     message += "<p class=\"chat-messages-message-text\">" + data.message + "</p>"
+            // }else{
+            //     message += "<strong id=\"chat-messages-message-user-"+ data.usuario +"\" class=\"chat-messages-message-user chat-messages-message-user-"+ data.usuario +"\">" + data.usuario + " </strong>"
+            //     message += "<p class=\"chat-messages-message-text\">" + data.message + "</p>"
+            // }
+            // message += "</span>"
+            // lastUser = data.usuario
+            // $("#chat-messages").append(message);
+            // $(".chat-messages-message-user-"+ data.usuario).css("color", randomColor());
+        }
     }else{
-        message += "<strong id=\"chat-messages-message-user-"+ data.usuario +"\" class=\"chat-messages-message-user chat-messages-message-user-"+ data.usuario +"\">" + data.usuario + " </strong>"
-        message += "<p class=\"chat-messages-message-text\">" + data.message + "</p>"
+        let message = "<span class=\"chat-messages-message\">"    
+        if (lastUser == data.usuario) {
+            message += "<p class=\"chat-messages-message-text\">" + data.message + "</p>"
+        }else{
+            message += "<strong id=\"chat-messages-message-user-"+ data.usuario +"\" class=\"chat-messages-message-user chat-messages-message-user-"+ data.usuario +"\">" + data.usuario + " </strong>"
+            message += "<p class=\"chat-messages-message-text\">" + data.message + "</p>"
+        }
+        message += "</span>"
+        lastUser = data.usuario
+        $("#chat-messages").append(message);
+        $(".chat-messages-message-user-"+ data.usuario).css("color", randomColor());
     }
-    message += "</span>"
-    lastUser = data.usuario
-    $("#chat-messages").append(message);
-    console.log(data.color, typeof(data.color));
-    $(".chat-messages-message-user-"+ data.usuario).css("color", randomColor());
 });
 
 socket.on("usuariosConectados", usuariosConectados => {
@@ -65,6 +92,15 @@ socket.on("usuariosConectados", usuariosConectados => {
 
 const handleUsuarioClick = (usuario) => {
     console.log(usuario);
+    userSelectedForDm = usuario;
+    $('#chat').css("display", "none");
+    $('#chat-privado').removeAttr("style");
+    $('#username-privado').html(`<b>${userSelectedForDm}</b>`);   
 }
+
+const goBack = () => {
+    $('#chat-privado').css("display", "none");
+    $('#chat').removeAttr("style");
+};
 
 

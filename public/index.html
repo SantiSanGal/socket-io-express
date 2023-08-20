@@ -48,6 +48,27 @@
         </div>
     </section>
 
+    <section id="chat-privado" class="chat-privado">
+        <div class="sidebar-privado">
+            <div class="header">
+                <div id="back-icon" class="back-icon" onclick="goBack()"><i class='bx bx-chevron-left'></i></div>
+            </div>
+        </div>
+        <div class="chat-privado-messages">
+            <div class="header">
+                <div class="user-icon"><i class='bx bx-user'></i></div>
+                <div id="username-privado" class="username"></div>
+            </div>
+            <div id="chat-messages-privado" class="chat-messages">
+            </div>
+    
+            <div class="container-input">
+                <input type="text" id="inputDM" name="inputDM" class="inputMessage" placeholder="Escriba su mensaje">
+                <button id="sendMessage" onclick="sendDM()"><i class='bx bx-send'></i></button>
+            </div>    
+        </div>
+    </section>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <script src="./js/index.js"></script>

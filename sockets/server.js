@@ -39,8 +39,20 @@ io.on("connection", socket => {
     });
 
     socket.on("sendMessage", data => {
-        // io.to(data.idUser).emit("showMessage", data);
-        io.emit("showMessage", data);
+        console.log('data', data);
+        if (data.destinatario) {
+            if (idsUsuarios[data.destinatario]) {
+                for (let i = 0; i < idsUsuarios[data.destinatario].length; i++) {
+                    console.log('xd', idsUsuarios[data.destinatario][i]);
+                    io.to(idsUsuarios[data.destinatario][i]).emit("showMessage", data);
+                }                        
+            }
+        }else{
+            io.emit("showMessage", data);
+        }
+        // data.destinatario ? io.to().emit("showMessage", data) 
+        // : io.emit("showMessage", data);
+        // // io.to(data.idUser).emit("showMessage", data);
     });
 
     socket.on("disconnect", () =>{
